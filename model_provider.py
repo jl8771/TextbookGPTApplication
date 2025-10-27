@@ -54,7 +54,8 @@ def get_model_provider(model_name: str):
     elif model_name == "qwen":
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
-            repo_id="Qwen/Qwen2.5-Coder-32B-Instruct",
+            repo_id="Qwen/Qwen3-Coder-30B-A3B-Instruct",
+            #repo_id="Qwen/Qwen2.5-Coder-32B-Instruct",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
