@@ -27,9 +27,9 @@ def get_model_provider(model_name: str):
     Args:
         model_name (str): Name of the model provider. Options include:
             - `openai`: OpenAI GPT-4o
-            - `qwen`: Alibaba Qwen2.5-Coder-32B-Instruct
-            - `llama`: Meta Llama-3.1-8B-Instruct
-            - `mistral`: MistralAI Mistral-7B-Instruct-v0.2
+            - `qwen`: Alibaba Qwen3-Coder-30B-A3B-Instruct
+            - `llama`: Meta Llama-4-Maverick-17B-128E-Instruct
+            - `mistral`: Mistral-Small-3.2-24B-Instruct-2506
             - `deepseek`: DeepseekAI DeepSeek-R1
             - `nemotron`: NVIDIA OpenReasoning-Nemotron-32B
             - `kimi`: MoonshotAI Kimi-K2-Instruct-0905
@@ -46,6 +46,7 @@ def get_model_provider(model_name: str):
     if model_name == "openai":
         return ChatOpenAI(
             model="gpt-4o",
+            #model="gpt-5-main",
             temperature=0,
             max_tokens=None,
             timeout=None,
@@ -62,14 +63,17 @@ def get_model_provider(model_name: str):
     elif model_name == "llama":
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
-            repo_id="meta-llama/Llama-3.1-8B-Instruct",
+            repo_id="meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+            #repo_id="meta-llama/Llama-3.3-70B-Instruct"
+            #repo_id="meta-llama/Llama-3.1-8B-Instruct",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
     elif model_name == "mistral":
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
-            repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+            repo_id="mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+            #repo_id="mistralai/Mistral-7B-Instruct-v0.2",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
@@ -102,11 +106,11 @@ def get_model_fullname(model_name: str):
     if model_name == "openai":
         return "OpenAI GPT-4o"
     elif model_name == "qwen":
-        return "Alibaba Qwen2.5-Coder-32B-Instruct"
+        return "Alibaba Qwen3-Coder-30B-A3B-Instruct"
     elif model_name == "llama":
-        return "Meta Llama-3.1-8B-Instruct"
+        return "Meta Llama-4-Maverick-17B-128E-Instruct"
     elif model_name == "mistral":
-        return "MistralAI Mistral-7B-Instruct-v0.2"
+        return "MistralAI Mistral-Small-3.2-24B-Instruct-2506"
     elif model_name == "deepseek":
         return "DeepseekAI DeepSeek-R1"
     elif model_name == "nemotron":
