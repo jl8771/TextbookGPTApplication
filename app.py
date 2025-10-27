@@ -26,7 +26,7 @@ def continue_chat():
 @app.route('/clear', methods=['POST'])
 def clear_chat():
     chat_session.clear_chat()
-    return ""
+    return jsonify({"status": "ok"})
 
 @app.route('/provider', methods=['POST'])
 def get_provider():
