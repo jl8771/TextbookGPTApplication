@@ -4,6 +4,9 @@
 # Test Files
 uninstall_pkg.txt
 
+# Textbook files
+*.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

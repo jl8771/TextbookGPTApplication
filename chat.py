@@ -5,10 +5,10 @@ import os
 class ChatSession:
     """Manages a chat session with the textbook assistant agent.
     Includes support for:
-    - OpenAI GPT-4o
-    - Alibaba Qwen2.5-Coder-32B-Instruct
-    - Meta Llama-3.1-8B-Instruct
-    - MistralAI Mistral-7B-Instruct-v0.2
+    - OpenAI GPT models
+    - Alibaba Qwen models
+    - Meta Llama models
+    - MistralAI Mistral models
     - DeepseekAI DeepSeek-R1
     - NVIDIA OpenReasoning-Nemotron-32B
     - MoonshotAI Kimi-K2-Instruct-0905
