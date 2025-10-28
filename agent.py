@@ -16,10 +16,10 @@ class AgentState(TypedDict):
 class AgentConfig:
     """Configuration class for setting up the textbook assistant agent with different LLM providers and tools.
     Includes support for:
-    - OpenAI GPT-4o
-    - Alibaba Qwen2.5-Coder-32B-Instruct
-    - Meta Llama-3.1-8B-Instruct
-    - MistralAI Mistral-7B-Instruct-v0.2
+    - OpenAI GPT models
+    - Alibaba Qwen models
+    - Meta Llama models
+    - MistralAI Mistral models
     - DeepseekAI DeepSeek-R1
     - NVIDIA OpenReasoning-Nemotron-32B
     - MoonshotAI Kimi-K2-Instruct-0905
@@ -62,7 +62,7 @@ class AgentConfig:
             _type_: A configured StateGraph representing the textbook assistant agent.
         """
         llm = self.llm
-        chat_tools = [textbook_info_tool, check_blank_page_tool, summarize_page_tool, search_tool]
+        chat_tools = [textbook_info_tool, summarize_page_tool, search_tool]
         llm_with_tools = llm.bind_tools(chat_tools)
 
         def assistant(state: AgentState):

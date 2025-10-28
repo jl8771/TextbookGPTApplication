@@ -1,6 +1,7 @@
 from agent import AgentConfig
 from langchain_core.messages import HumanMessage, SystemMessage
 import os
+from langfuse.langchain import CallbackHandler
 
 class ChatSession:
     """Manages a chat session with the textbook assistant agent.
@@ -21,17 +22,21 @@ class ChatSession:
         to use a predefined prompt to specialize in retrieving and summarizing information from academic textbooks.
     """
     def __init__(self, model_provider: str = "qwen", system_prompt: str = None):
+        os.environ["LANGFUSE_PUBLIC_KEY"] = os.getenv("LANGFUSE_PUBLIC_KEY")
+        os.environ["LANGFUSE_SECRET_KEY"] = os.getenv("LANGFUSE_SECRET_KEY")
+        os.environ["LANGFUSE_HOST"] = os.getenv("LANGFUSE_HOST", "https://us.cloud.langfuse.com")
+        
         self.provider = model_provider
         self.config = AgentConfig(provider=self.provider)
         self.assistant = self.config.get_agent()
         self.model_name = self.config.get_model_fullname()
         self.messages = []
         self.assistant_messages = []
+        self.langfuse_handler = CallbackHandler()
         if system_prompt is not None:
             self.system_prompt = system_prompt
         else:
-            self.system_prompt = """
-        You are a helpful and knowledgeable assistant specializing in 
+            self.system_prompt = """You are a helpful and knowledgeable assistant specializing in 
         retrieving and summarizing information from academic textbooks.
         When possible, you should use the retrieval tool to find relevant
         passages from textbooks to support your answers. Provide the name
@@ -65,7 +70,10 @@ class ChatSession:
             str: The assistant's response to the initial query.
         """
         if len(self.messages) == 0:
-            response = self.assistant.invoke({"messages": [SystemMessage(content=self.system_prompt)] + [HumanMessage(content=query)]})
+            response = self.assistant.invoke(
+                input={"messages": [SystemMessage(content=self.system_prompt)] + [HumanMessage(content=query)]},
+                config={"callbacks": [self.langfuse_handler]}
+            )
             self.assistant_messages = response
             self.messages.append({"User": query})
             self.messages.append({"Assistant": response['messages'][-1].content})
@@ -84,7 +92,10 @@ class ChatSession:
             str: The assistant's response to the follow on query.
         """
         if len(self.messages) != 0:
-            response = self.assistant.invoke({"messages": self.assistant_messages['messages'] + [HumanMessage(content=query)]})
+            response = self.assistant.invoke(
+                input={"messages": self.assistant_messages['messages'] + [HumanMessage(content=query)]},
+                config={"callbacks": [self.langfuse_handler]}
+            )
             self.assistant_messages = response
             self.messages.append({"User": query})
             self.messages.append({"Assistant": response['messages'][-1].content})
