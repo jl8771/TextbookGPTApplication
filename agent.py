@@ -54,7 +54,6 @@ class AgentConfig:
         if provider_name in available_providers:
             return get_model_provider(provider_name)
 
-    # TODO: Add support for other models (Huggingface Qwen, Anthropic Claude, Deepseek, etc)
     def get_agent(self):
         """Configures and returns the textbook assistant agent with the selected LLM and tools.
 

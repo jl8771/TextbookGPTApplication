@@ -5,7 +5,6 @@ from langchain_core.documents import Document
 from langchain.tools import Tool
 from sentence_transformers import SentenceTransformer, CrossEncoder, util
 from torch import Tensor
-#from langchain_community.retrievers import BM25Retriever
 
 CORPUS_JSON_PATH = 'EngTextbooksPDF_Cleaned.json'
 CORPUS_EMBEDDINGS_PATH = 'textbook_embeddings.pkl'
