@@ -62,7 +62,6 @@ def get_model_provider(model_name: str):
         llm = HuggingFaceEndpoint(
             repo_id="meta-llama/Llama-4-Maverick-17B-128E-Instruct",
             #repo_id="meta-llama/Llama-3.3-70B-Instruct"
-            #repo_id="meta-llama/Llama-3.1-8B-Instruct",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
