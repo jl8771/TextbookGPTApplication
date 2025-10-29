@@ -1,24 +1,21 @@
 import os
 from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
-#from langchain_anthropic import Anthropic
-#from langchain_ollama import Ollama
-#from langchain_mistralai import MistralAI
-#from langchain_deepseek import Deepseek
-#from langchain_perplexity import PerplexityAI
-#from langchain_xai import XAI
+#from langchain_anthropic import ChatAnthropic
+#from langchain_xai import ChatXAI
+#from langchain_google_genai import ChatGoogleGenerativeAI
 
 available_models = [
     "openai",
     "qwen",
     "llama",
     "kimi",
-    "mistral",
+    #"mistral", # Currently disabled for instability
     "deepseek",
-    "nemotron",
+    #"nemotron", # Currently disabled for instability
     #"claude", # TODO: Add support for Anthropic Claude
     #"xai", # TODO: Add support for xAI
-    #"perplexity", # TODO: Add support for Perplexity AI
+    #"gemini", # TODO: Add support for Google Gemini
 ]
 
 def get_model_provider(model_name: str):

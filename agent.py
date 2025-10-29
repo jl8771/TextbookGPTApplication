@@ -50,9 +50,7 @@ class AgentConfig:
             _type_: An instance of the selected LLM model.
         """
         print("Setting model provider to:", provider_name)
-        available_providers = ["qwen", "openai", "llama", "mistral", "deepseek", "nemotron", "kimi"]
-        if provider_name in available_providers:
-            return get_model_provider(provider_name)
+        return get_model_provider(provider_name)
 
     def get_agent(self):
         """Configures and returns the textbook assistant agent with the selected LLM and tools.
