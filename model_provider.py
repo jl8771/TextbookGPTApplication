@@ -23,7 +23,7 @@ def get_model_provider(model_name: str):
 
     Args:
         model_name (str): Name of the model provider. Options include:
-            - `openai`: OpenAI GPT-4o
+            - `openai`: OpenAI GPT-5
             - `qwen`: Alibaba Qwen3-Coder-30B-A3B-Instruct
             - `llama`: Meta Llama-4-Maverick-17B-128E-Instruct
             - `mistral`: Mistral-Small-3.2-24B-Instruct-2506
@@ -42,8 +42,8 @@ def get_model_provider(model_name: str):
     
     if model_name == "openai":
         return ChatOpenAI(
-            model="gpt-4o",
-            #model="gpt-5-main",
+            model="gpt-5",
+            #model="gpt-4o",
             temperature=0,
             max_tokens=None,
             timeout=None,
@@ -100,7 +100,7 @@ def get_model_fullname(model_name: str):
         raise ValueError(f"Model '{model_name}' is not supported. Available models: {available_models}")
     
     if model_name == "openai":
-        return "OpenAI GPT-4o"
+        return "OpenAI GPT-5"
     elif model_name == "qwen":
         return "Alibaba Qwen3-Coder-30B-A3B-Instruct"
     elif model_name == "llama":
