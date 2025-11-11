@@ -90,7 +90,8 @@ def get_model_provider(model_name: str):
     elif model_name == "kimi":
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
-            repo_id="moonshotai/Kimi-K2-Instruct-0905",
+            repo_id="moonshotai/Kimi-K2-Thinking",
+            #repo_id="moonshotai/Kimi-K2-Instruct-0905",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
@@ -112,4 +113,4 @@ def get_model_fullname(model_name: str):
     elif model_name == "nemotron":
         return "NVIDIA OpenReasoning-Nemotron-32B"
     elif model_name == "kimi":
-        return "MoonshotAI Kimi-K2-Instruct-0905"    
+        return "MoonshotAI Kimi-K2-Thinking"    
