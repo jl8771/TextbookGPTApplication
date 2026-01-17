@@ -12,6 +12,7 @@ available_models = [
     "kimi",
     #"mistral", # Currently disabled for instability
     "deepseek",
+    "zai",
     #"nemotron", # Currently disabled for instability
     #"claude", # TODO: Add support for Anthropic Claude
     #"xai", # TODO: Add support for xAI
@@ -28,6 +29,7 @@ def get_model_provider(model_name: str):
             - `llama`: Meta Llama-4-Maverick-17B-128E-Instruct
             - `mistral`: Mistral-Small-3.2-24B-Instruct-2506
             - `deepseek`: DeepseekAI DeepSeek-R1
+            - `zai`: ZhipuAI GLM-4.7
             - `nemotron`: NVIDIA OpenReasoning-Nemotron-32B
             - `kimi`: MoonshotAI Kimi-K2-Instruct-0905
 
@@ -43,7 +45,6 @@ def get_model_provider(model_name: str):
     if model_name == "openai":
         return ChatOpenAI(
             model="gpt-5",
-            #model="gpt-4o",
             temperature=0,
             max_tokens=None,
             timeout=None,
@@ -53,7 +54,6 @@ def get_model_provider(model_name: str):
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
             repo_id="Qwen/Qwen3-Coder-30B-A3B-Instruct",
-            #repo_id="Qwen/Qwen2.5-Coder-32B-Instruct",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
@@ -61,7 +61,6 @@ def get_model_provider(model_name: str):
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
             repo_id="meta-llama/Llama-4-Maverick-17B-128E-Instruct",
-            #repo_id="meta-llama/Llama-3.3-70B-Instruct"
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
@@ -69,7 +68,6 @@ def get_model_provider(model_name: str):
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
             repo_id="mistralai/Mistral-Small-3.2-24B-Instruct-2506",
-            #repo_id="mistralai/Mistral-7B-Instruct-v0.2",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
@@ -77,6 +75,13 @@ def get_model_provider(model_name: str):
         HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         llm = HuggingFaceEndpoint(
             repo_id="deepseek-ai/DeepSeek-R1",
+            huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
+        )
+        return ChatHuggingFace(llm=llm, verbose=True)
+    elif model_name == "zai":
+        HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+        llm = HuggingFaceEndpoint(
+            repo_id="zai-org/GLM-4.7",
             huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
         )
         return ChatHuggingFace(llm=llm, verbose=True)
@@ -110,6 +115,8 @@ def get_model_fullname(model_name: str):
         return "MistralAI Mistral-Small-3.2-24B-Instruct-2506"
     elif model_name == "deepseek":
         return "DeepseekAI DeepSeek-R1"
+    elif model_name == "zai":
+        return "Zhipu AI GLM-4.7"
     elif model_name == "nemotron":
         return "NVIDIA OpenReasoning-Nemotron-32B"
     elif model_name == "kimi":
