@@ -7,6 +7,7 @@ from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
 
 available_models = [
     "openai",
+    "openai_latest",
     "qwen",
     "llama",
     "kimi",
@@ -45,6 +46,14 @@ def get_model_provider(model_name: str):
     if model_name == "openai":
         return ChatOpenAI(
             model="gpt-5",
+            temperature=0,
+            max_tokens=None,
+            timeout=None,
+            max_retries=2
+        )
+    elif model_name == "openai_latest":
+        return ChatOpenAI(
+            model="gpt-5.2-2025-12-11",
             temperature=0,
             max_tokens=None,
             timeout=None,
@@ -107,6 +116,8 @@ def get_model_fullname(model_name: str):
     
     if model_name == "openai":
         return "OpenAI GPT-5"
+    elif model_name == "openai_latest":
+        return "OpenAI GPT-5.2 2025-12-11 Snapshot"
     elif model_name == "qwen":
         return "Alibaba Qwen3-Coder-30B-A3B-Instruct"
     elif model_name == "llama":
